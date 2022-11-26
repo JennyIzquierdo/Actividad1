@@ -1,3 +1,4 @@
+//Arreglo Restaurantes
 const restaurants = [
     {
         name:'Pacifico Mar', 
@@ -30,13 +31,16 @@ const restaurants = [
     
 ];
 
+/**los datos mostrados para esta página, son de acuerdo a un arreglo de objetos (restaurants)
+ *  definido en la aplicación.
+*/
 
 const polaroids = document.querySelector(".item");
 for (var i = 0; i < restaurants.length; i++) {
     
 
     let pol = document.createElement('div');
-    pol.className = 'polaroid';
+    pol.className = 'polaroid col-4';
     
     let imgpol = document.createElement('img');
     imgpol.src = restaurants[i]['image'];
@@ -67,6 +71,45 @@ for (var i = 0; i < restaurants.length; i++) {
     polaroids.appendChild(pol);
 
 }
-
-
 console.log(polaroids);
+
+
+/**
+ * Los datos mostrados para esta página, son de acuerdo a un arreglo de objetos (restaurants) 
+ * definido en la aplicación. La página debe permitir la búsqueda de restaurantes por nombre.
+ * 
+ */
+
+const formulario = document.querySelector('#formulario');
+const boton =document.querySelector('#boton');
+const resultado=document.querySelector('#resultado');
+
+const filtrar = ()=>{
+ 
+   resultado.innerHTML= '';
+
+   const texto = formulario.ariaValueMax.toLowerCase();
+
+   for (let restaurant of restaurants){
+    let  name = restaurant.name.toLowerCase();
+    if(name.indexOf(texto) !==1 ){
+        resultado,innerHTML += `
+        <li>
+           ${restaurant.name} - ${restaurant.city}
+        </li>
+        `
+    }
+   }
+   if (resultado.innerHTML === ''){
+        `
+        <li>
+            Producto no Encontrado...
+        </li>
+        `
+   }
+}
+
+boton.addEventListener('click',filtrar)
+formulario.addEventListener('keyup',filtrar)
+
+filtrar();
